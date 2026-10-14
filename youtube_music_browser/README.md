@@ -32,3 +32,7 @@ Behebt eine Zurückweisung der PulseAudio-Clientverbindung durch die zusätzlich
 ## Version 1.0.12
 
 Verhindert, dass die PulseAudio-Standardkonfiguration denselben Unix-Socket belegt wie die Add-on-Konfiguration.
+
+## Version 1.0.13
+
+Reduziert die Pufferung beim PulseAudio-Eingang, beim MP3-Ausgang und beim HTTP-Stream.

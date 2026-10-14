@@ -83,8 +83,9 @@ class Handler(BaseHTTPRequestHandler):
         """Capture Chromium's virtual PulseAudio output and stream it as MP3."""
         command = [
             "ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin",
-            "-f", "pulse", "-i", "ytmusic.monitor", "-ac", "2",
-            "-codec:a", "libmp3lame", "-b:a", "192k", "-f", "mp3", "pipe:1",
+            "-f", "pulse", "-fragment_size", "4096", "-i", "ytmusic.monitor", "-ac", "2",
+            "-codec:a", "libmp3lame", "-b:a", "128k", "-flush_packets", "1",
+            "-f", "mp3", "pipe:1",
         ]
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
         self.send_response(200)
@@ -95,7 +96,7 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         try:
             while True:
-                chunk = process.stdout.read(8192)
+                chunk = process.stdout.read(2048)
                 if not chunk:
                     break
                 self.wfile.write(f"{len(chunk):X}\r\n".encode() + chunk + b"\r\n")
