@@ -28,3 +28,7 @@ PulseAudio wird jetzt direkt von s6 überwacht. Das Socket-Verzeichnis ist für 
 ## Version 1.0.11
 
 Behebt eine Zurückweisung der PulseAudio-Clientverbindung durch die zusätzliche Cookie-Authentifizierung am lokalen Unix-Socket.
+
+## Version 1.0.12
+
+Verhindert, dass die PulseAudio-Standardkonfiguration denselben Unix-Socket belegt wie die Add-on-Konfiguration.

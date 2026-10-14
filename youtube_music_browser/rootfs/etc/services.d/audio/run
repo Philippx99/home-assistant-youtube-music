@@ -3,4 +3,4 @@ set -e
 mkdir -p /run/pulse
 chmod 777 /run/pulse
 echo "[audio] Starte PulseAudio im Vordergrund; Socket: /run/pulse/native"
-exec pulseaudio --system --file=/app/pulse.pa --daemonize=no --disallow-exit --disable-shm=yes --fail --log-target=stderr --verbose
+exec pulseaudio --system --daemonize=no --disallow-exit --disable-shm=yes --fail --log-target=stderr --verbose --file=/app/pulse.pa -n
