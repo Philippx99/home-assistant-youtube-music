@@ -1,7 +1,16 @@
 #!/usr/bin/with-contenv bashio
 set -e
 export DISPLAY=:0
-while [ ! -S /tmp/.X11-unix/X0 ]; do sleep 1; done
+echo "[vnc] Dienst gestartet; warte auf X11-Socket /tmp/.X11-unix/X0"
+waited=0
+while [ ! -S /tmp/.X11-unix/X0 ]; do
+  sleep 1
+  waited=$((waited + 1))
+  if [ $((waited % 10)) -eq 0 ]; then
+    echo "[vnc] X11-Socket nach ${waited}s noch nicht vorhanden"
+  fi
+done
+echo "[vnc] X11-Socket gefunden; starte x11vnc"
 echo "Starting x11vnc on 127.0.0.1:5900"
 x11vnc -display :0 -forever -shared -rfbport 5900 -nopw -listen 127.0.0.1 -o /dev/stdout &
 echo "Starting websockify on 0.0.0.0:6080, targeting 127.0.0.1:5900"

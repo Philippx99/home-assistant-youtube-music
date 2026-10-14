@@ -16,3 +16,7 @@ Das Add-on zeigt YouTube Music in einer Browser-App im Home-Assistant-Seitenmen�
 - Das Add-on streamt den Browser-Ton live. Verbinde den Player zuerst und starte danach den Titel; der Stream hat keine Suchleiste oder Rücksprungfunktion.
 - Der Browser spielt den Ton über den virtuellen Audioausgang des Add-ons. Die lokale Browser-App gibt den Ton daher nicht zusätzlich über den Computerlautsprecher aus.
 - Der Image-Build benötigt Internetzugriff.
+
+## Version 1.0.9
+
+Enthält zusätzliche Startmeldungen für PulseAudio, Xvfb, x11vnc und websockify. Sie zeigen im Add-on-Protokoll, an welcher Stelle der Browser- oder VNC-Start hängen bleibt.

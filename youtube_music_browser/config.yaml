@@ -1,5 +1,5 @@
 name: YouTube Music Browser
-version: "1.0.8"
+version: "1.0.9"
 slug: youtube_music_browser
 description: YouTube Music mit Google-Anmeldung im Home-Assistant-Menü öffnen und Titel an Media Player senden.
 arch:

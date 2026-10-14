@@ -1,11 +1,25 @@
 #!/usr/bin/with-contenv bashio
 set -e
+echo "[youtube] Service gestartet; warte auf PulseAudio"
 mkdir -p /data/chromium
 export HOME=/data DISPLAY=:0
 export PULSE_SERVER=unix:/run/pulse/native
-while ! pactl info >/dev/null 2>&1; do sleep 1; done
+waited=0
+while ! pactl info >/dev/null 2>&1; do
+  sleep 1
+  waited=$((waited + 1))
+  if [ $((waited % 10)) -eq 0 ]; then
+    echo "[youtube] PulseAudio ist nach ${waited}s noch nicht erreichbar"
+  fi
+done
+echo "[youtube] PulseAudio erreichbar; starte Xvfb"
 Xvfb :0 -screen 0 1600x1000x24 -ac +extension RANDR &
-sleep 1
+sleep 2
+if [ ! -S /tmp/.X11-unix/X0 ]; then
+  echo "[youtube] FEHLER: Xvfb hat den X11-Socket /tmp/.X11-unix/X0 nicht erstellt"
+  exit 1
+fi
+echo "[youtube] Xvfb bereit; starte Fluxbox und Chromium"
 fluxbox &
 chromium-browser \
   --no-sandbox \
