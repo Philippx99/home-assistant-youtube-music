@@ -133,7 +133,6 @@ class Handler(BaseHTTPRequestHandler):
                 "entity_id": entity_id,
                 "media_content_id": url,
                 "media_content_type": "audio/mpeg",
-                "extra": {"stream_type": "LIVE"},
             })
             return self.send_json({"ok": True, "url": url})
         except Exception as err:

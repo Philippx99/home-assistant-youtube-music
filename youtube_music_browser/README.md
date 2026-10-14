@@ -40,3 +40,7 @@ Reduziert die Pufferung beim PulseAudio-Eingang, beim MP3-Ausgang und beim HTTP-
 ## Version 1.0.14
 
 Kennzeichnet die Media-Player-Wiedergabe als Live-Stream, damit unterstützte Player den endlosen Stream nicht wie eine normale Datei puffern.
+
+## Version 1.0.15
+
+Entfernt die LIVE-Kennzeichnung wieder, da sie bei manchen Playern zu zusätzlicher Pufferung führt.
