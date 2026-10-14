@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>YouTube Music</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111;color:#eee;font:14px system-ui,sans-serif}.bar{height:64px;display:flex;gap:12px;align-items:center;padding:8px 14px;background:#202020;border-bottom:1px solid #383838}.brand{font-size:17px;font-weight:700;white-space:nowrap}select,button{font:inherit;color:#fff;background:#292929;border:1px solid #555;border-radius:7px;padding:9px 11px}select{min-width:230px;max-width:34vw}button{background:#008fae;border-color:#008fae;cursor:pointer;font-weight:650}button:disabled{opacity:.55;cursor:wait}.status{color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.status.error{color:#ff827a}.frame{height:calc(100vh - 64px)}iframe{width:100%;height:100%;border:0}@media(max-width:650px){.bar{height:auto;min-height:64px;flex-wrap:wrap}.brand{width:100%}select{flex:1;max-width:none}.frame{height:calc(100vh - 105px)}}
+</style></head><body>
+<div class="bar"><div class="brand">▶ YouTube Music</div><select id="player"><option value="">Media Player laden…</option></select><button id="send">Player verbinden</button><div id="status" class="status">Erst verbinden, dann YouTube Music im Browser starten. Der Browser-Ton wird an den Player geleitet.</div></div>
+<div class="frame"><iframe title="YouTube Music Browser" src="vnc.html?autoconnect=true&resize=remote&quality=8&compression=2&path=websockify"></iframe></div>
+<script>
+const $=s=>document.querySelector(s), status=$('#status');
+async function api(path,opts){const r=await fetch(new URL(path,location.href),opts);const type=r.headers.get('content-type')||'';if(!type.includes('application/json'))throw Error(`Server antwortete mit HTTP ${r.status} statt JSON. Prüfe den Home-Assistant-Ingress-Pfad und starte die App neu.`);const d=await r.json();if(!r.ok||d.error)throw Error(d.error||r.statusText);return d}
+async function loadPlayers(){try{const d=await api('api/players');$('#player').innerHTML='<option value="">Media Player wählen…</option>'+d.players.map(p=>`<option value="${esc(p.entity_id)}">${esc(p.name)}</option>`).join('')}catch(e){status.textContent='Player konnten nicht geladen werden: '+e.message;status.className='status error'}}
+async function send(){const entity_id=$('#player').value;if(!entity_id){status.textContent='Bitte zuerst einen Media Player wählen.';status.className='status error';return}const b=$('#send');b.disabled=true;status.className='status';status.textContent='Verbinde den Player mit dem Browser-Audio…';try{await api('api/play',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entity_id})});status.textContent='Player verbunden. Starte jetzt die Wiedergabe im YouTube-Music-Browser.'}catch(e){status.textContent=e.message;status.className='status error'}finally{b.disabled=false}}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('#send').onclick=send;loadPlayers();setInterval(loadPlayers,60000);
+</script></body></html>

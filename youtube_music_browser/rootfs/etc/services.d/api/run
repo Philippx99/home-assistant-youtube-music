@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bashio
+export PULSE_SERVER=unix:/run/pulse/native
+exec python3 /app/api.py

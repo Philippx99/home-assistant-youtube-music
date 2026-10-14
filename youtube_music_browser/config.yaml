@@ -1,0 +1,23 @@
+name: YouTube Music Browser
+version: "1.0.3"
+slug: youtube_music_browser
+description: YouTube Music mit Google-Anmeldung im Home-Assistant-Menü öffnen und Titel an Media Player senden.
+arch:
+  - amd64
+  - aarch64
+startup: application
+boot: auto
+init: false
+homeassistant_api: true
+ingress: true
+ingress_port: 8099
+ports:
+  8099/tcp: 8099
+ports_description:
+  8099/tcp: Live-Audiostream für Media Player im lokalen Netzwerk
+panel_icon: mdi:youtube
+panel_title: YouTube Music
+options:
+  stream_base_url: ""
+schema:
+  stream_base_url: str?
