@@ -36,3 +36,7 @@ Verhindert, dass die PulseAudio-Standardkonfiguration denselben Unix-Socket bele
 ## Version 1.0.13
 
 Reduziert die Pufferung beim PulseAudio-Eingang, beim MP3-Ausgang und beim HTTP-Stream.
+
+## Version 1.0.14
+
+Kennzeichnet die Media-Player-Wiedergabe als Live-Stream, damit unterstützte Player den endlosen Stream nicht wie eine normale Datei puffern.
