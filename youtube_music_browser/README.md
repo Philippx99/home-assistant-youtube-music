@@ -24,3 +24,7 @@ Enthält zusätzliche Startmeldungen für PulseAudio, Xvfb, x11vnc und websockif
 ## Version 1.0.10
 
 PulseAudio wird jetzt direkt von s6 überwacht. Das Socket-Verzeichnis ist für den PulseAudio-Systemdienst beschreibbar; Startfehler erscheinen im Add-on-Protokoll.
+
+## Version 1.0.11
+
+Behebt eine Zurückweisung der PulseAudio-Clientverbindung durch die zusätzliche Cookie-Authentifizierung am lokalen Unix-Socket.
