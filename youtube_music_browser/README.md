@@ -20,3 +20,7 @@ Das Add-on zeigt YouTube Music in einer Browser-App im Home-Assistant-Seitenmen�
 ## Version 1.0.9
 
 Enth채lt zus채tzliche Startmeldungen f체r PulseAudio, Xvfb, x11vnc und websockify. Sie zeigen im Add-on-Protokoll, an welcher Stelle der Browser- oder VNC-Start h채ngen bleibt.
+
+## Version 1.0.10
+
+PulseAudio wird jetzt direkt von s6 체berwacht. Das Socket-Verzeichnis ist f체r den PulseAudio-Systemdienst beschreibbar; Startfehler erscheinen im Add-on-Protokoll.

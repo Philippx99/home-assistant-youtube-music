@@ -1,8 +1,6 @@
 #!/usr/bin/with-contenv bashio
 set -e
 mkdir -p /run/pulse
-pulseaudio --system --file=/app/pulse.pa --daemonize=yes --disallow-exit --exit-idle-time=-1 --disable-shm=yes
-sleep 1
-export PULSE_SERVER=unix:/run/pulse/native
-until pactl info >/dev/null 2>&1; do sleep 1; done
-exec sleep infinity
+chmod 777 /run/pulse
+echo "[audio] Starte PulseAudio im Vordergrund; Socket: /run/pulse/native"
+exec pulseaudio --system --file=/app/pulse.pa --daemonize=no --disallow-exit --disable-shm=yes --fail --log-target=stderr --verbose
