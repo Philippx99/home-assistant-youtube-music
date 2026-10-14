@@ -2,7 +2,7 @@
 set -e
 export DISPLAY=:0
 while [ ! -S /tmp/.X11-unix/X0 ]; do sleep 1; done
-x11vnc -display :0 -forever -shared -rfbport 5900 -nopw -localhost &
+x11vnc -display :0 -forever -shared -rfbport 5900 -nopw -localhost -o /dev/stdout &
 x11vnc_pid=$!
 until (echo > /dev/tcp/127.0.0.1/5900) >/dev/null 2>&1; do
   if ! kill -0 "$x11vnc_pid" 2>/dev/null; then
@@ -11,4 +11,4 @@ until (echo > /dev/tcp/127.0.0.1/5900) >/dev/null 2>&1; do
   fi
   sleep 1
 done
-exec websockify --web=/usr/share/novnc/ 6080 127.0.0.1:5900
+exec websockify --verbose --web=/usr/share/novnc/ 6080 127.0.0.1:5900
